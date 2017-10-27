@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<!-- struts为配置文件根元素 -->
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" /> <!-- 禁止动态方法访问 -->
+	<constant name="struts.i18n.encoding" value="utf-8"></constant>
+	<!-- Action必须放在指定的包名空间中 -->
+	<package name="struts2" extends="struts-default"><!-- json-default是继承自struts-default的 -->
+
+		<!-- 管理员操作 -->
+		<action name="loginCheck" class="mana_loginCheckAction">
+			<result name="mana_login_success" type="dispatcher">/page/mainpage.jsp
+			</result>
+			<result name="mana_login_filed" type="redirect">/login.html</result>
+		</action>
+		<action name="loginout" class="mana_loginout"><!-- 退出登录 -->
+			<result name="success" type="redirect">/login.html</result>
+		</action>
+
+		<action name="mana_querry" class="mana_querryAction">
+			<result name="success" type="dispatcher">/page/mana/mana_querry.jsp
+			</result>
+			<result name="error" type="redirect">/page/mana/mana_update.jsp
+			</result>
+		</action>
+		<action name="mana_add" class="mana_addAction">
+			<result name="success" type="dispatcher">mana_querry.action
+			</result>
+		</action>
+		<action name="mana_del" class="mana_delAction">
+			<result name="success" type="redirect">invitequerry.action
+			</result>
+			<result name="error" type="redirect">invitequerry.action
+			</result>
+		</action>
+		<action name="mana_update" class="mana_updateAction">
+			<result name="success" type="redirect">invitequerry.action
+			</result>
+			<result name="error" type="redirect">invitequerry.action
+			</result>
+		</action>
+		<!-- 管理员操作 -->
+
+		<!-- 员工管理 -->
+		<action name="employee_querry" class="empolyee_querryAction">
+			<result name="success" type="dispatcher">/page/employeeManage/employeeManaBefore.jsp
+			</result>
+			<result name="error" type="redirect">/page/test/index.jsp
+			</result>
+		</action>
+		<action name="employee_add" class="empolyee_addAction">
+			<result name="success" type="dispatcher">employee_querry
+			</result>
+			<result name="error" type="dispatcher">employee_querry
+			</result>
+		</action>
+		<action name="employee_del" class="empolyee_delAction">
+			<result name="success" type="redirect">invitequerry.action
+			</result>
+			<result name="error" type="redirect">invitequerry.action
+			</result>
+		</action>
+		<action name="employee_update" class="empolyee_updateAction">
+			<result name="success" type="redirect">invitequerry.action
+			</result>
+			<result name="error" type="redirect">invitequerry.action
+			</result>
+		</action>
+		<!-- 员工管理 -->
+
+
+		<!-- 招聘管理 -->
+		<action name="invite_querry" class="wanted_querryAction">
+			<result name="success" type="dispatcher">/page/inviteJob/invitejobBefore.jsp
+			</result>
+			<result name="error" type="redirect">/page/test/index.jsp
+			</result>
+		</action>
+		<action name="invite_add" class="wanted_addAction">
+			<result name="success" type="dispatcher">invite_querry.action
+			</result>
+			<result name="error" type="dispatcher">invite_querry.action
+			</result>
+		</action>
+		<action name="invite_del" class="wanted_delAction">
+			<result name="success" type="redirect">invitequerry.action
+			</result>
+			<result name="error" type="redirect">invitequerry.action
+			</result>
+		</action>
+		<action name="invite_update" class="wanted_updateAction">
+			<result name="success" type="redirect">invitequerry.action
+			</result>
+			<result name="error" type="redirect">invitequerry.action
+			</result>
+		</action>
+
+
+		<!-- 招聘管理 -->
+
+		<!-- 部门管理 -->
+
+		<action name="department_querry" class="department_querryAction">
+			<result name="success" type="dispatcher">/page/partmentManage/partmentManaBefore.jsp
+			</result>
+			<result name="error" type="redirect">/page/partmentManage/partmentManaBefore.jsp
+			</result>
+		</action>
+		<action name="department_add" class="department_addAction">
+			<result name="success" type="redirect">department_querry.action
+			</result>
+			
+		</action>
+		<action name="department_del" class="department_delAction">
+			<result name="success" type="redirect">invitequerry.action
+			</result>
+			<result name="error" type="redirect">invitequerry.action
+			</result>
+		</action>
+		<action name="department_update" class="department_updateAction">
+			<result name="success" type="redirect">invitequerry.action
+			</result>
+			<result name="error" type="redirect">invitequerry.action
+			</result>
+		</action>
+		<!-- 部门管理 -->
+		<!-- 培训管理 -->
+		<action name="train_querry" class="train_querryAction">
+			<result name="success" type="dispatcher">/page/train/trainBefore.jsp
+			</result>
+			<result name="error" type="redirect">/page/test/index.jsp
+			</result>
+		</action>
+		<action name="train_add" class="train_addAction">
+			<result name="success" type="redirect">train_querry.action
+			</result>
+			<result name="error" type="dispatcher">train_querry.action
+			</result>
+		</action>
+		<action name="train_del" class="train_delAction">
+			<result name="success" type="redirect">invitequerry.action
+			</result>
+			<result name="error" type="redirect">invitequerry.action
+			</result>
+		</action>
+		<action name="train_update" class="train_updateAction">
+			<result name="success" type="redirect">invitequerry.action
+			</result>
+			<result name="error" type="redirect">invitequerry.action
+			</result>
+		</action>
+		<!-- 培训管理 -->
+		<!-- 薪酬管理 -->
+		<action name="pay_querry" class="pay_querryAction">
+			<result name="success" type="dispatcher">/page/pay/payBefore.jsp
+			</result>
+			<result name="error" type="redirect">/page/test/index.jsp
+			</result>
+		</action>
+		<action name="pay_add" class="pay_addAction">
+			<result name="success" type="redirect">pay_querry.action
+			</result>
+			<result name="error" type="dispatcher">pay_querry.action
+			</result>
+		</action>
+		<action name="pay_del" class="pay_delAction">
+			<result name="success" type="redirect">invitequerry.action
+			</result>
+			<result name="error" type="redirect">invitequerry.action
+			</result>
+		</action>
+		<action name="pay_update" class="pay_updateAction">
+			<result name="success" type="redirect">invitequerry.action
+			</result>
+			<result name="error" type="redirect">invitequerry.action
+			</result>
+		</action>
+
+		<!-- 薪酬管理 -->
+		<!-- 奖惩管理 -->
+		<action name="cj_querry" class="cj_querryAction">
+			<result name="success" type="dispatcher">/page/cj/cjBefore.jsp
+			</result>
+			<result name="error" type="redirect">/page/test/index.jsp
+			</result>
+		</action>
+		<action name="cj_add" class="cj_addAction">
+			<result name="success" type="redirect">cj_querry.action
+			</result>
+			<result name="error" type="dispatcher">/page/test/index.jsp
+			</result>
+		</action>
+		<action name="cj_del" class="cj_delAction">
+			<result name="success" type="redirect">invitequerry.action
+			</result>
+			<result name="error" type="redirect">invitequerry.action
+			</result>
+		</action>
+		<action name="cj_update" class="cj_updateAction">
+			<result name="success" type="redirect">invitequerry.action
+			</result>
+			<result name="error" type="redirect">invitequerry.action
+			</result>
+		</action>
+		<!-- 奖惩管理 -->
+	</package>
+</struts>
+

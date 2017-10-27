@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<!-- 每个class对应一个持久化对象 -->
+		<class name="po.tb_invitejob">
+		<!-- id元素用来定义主键标识,并指定主键生成策略 -->
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		
+		<!-- 定义其他属性 -->
+		<property name="name"></property>
+		<property name="sex"></property>
+		<property name="age"></property>
+		<property name="born"></property>
+		<property name="job"></property>
+		<property name="specially"></property>
+		<property name="experience"></property>
+		<property name="teachSchool"></property>
+		<property name="afterSchool"></property>
+		<property name="tel"></property>
+		<property name="address"></property>
+		<property name="createtime"></property>
+		<property name="registerDate" generated="insert" not-null="true">
+		<column name="registerDate" sql-type="timestamp" default="CURRENT_TIMESTAMP"/>
+		</property>
+		<property name="content"></property>
+		<property name="isstock"></property>
+	</class>
+	<class name="po.tb_employee">
+		<!-- id元素用来定义主键标识,并指定主键生成策略 -->
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		
+		<!-- 定义其他属性 -->
+		<property name="em_serialNumber"></property>
+		<property name="em_name"></property>
+		<property name="em_sex"></property>
+		<property name="em_age"></property>
+		<property name="em_IDCard"></property>
+		<property name="em_born"></property>
+		<property name="em_nation"></property>
+		<property name="em_marriage"></property>
+		<property name="em_visage"></property>
+		<property name="em_ancestralHome"></property>
+		<property name="em_tel"></property>
+		<property name="em_address"></property>
+		<property name="em_afterSchool"></property>
+		<property name="em_specially"></property>
+		<property name="em_culture"></property>
+		<property name="em_startime"></property>
+		<property name="em_departmentId"></property>
+		<property name="em_typeWork"></property>
+		<property name="em_creatime"></property>
+		<property name="em_createName"></property>
+		<property name="em_bz"></property>
+		<property name="em_registerDate" generated="insert" not-null="true">
+		<column name="em_registerDate" sql-type="timestamp" default="CURRENT_TIMESTAMP"/>
+		</property>
+	</class>
+	<class name="po.tb_pay">
+		<!-- id元素用来定义主键标识,并指定主键生成策略 -->
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		
+		<!-- 定义其他属性 -->
+		<property name="pay_emNumber"></property>
+		<property name="pay_emName"></property>
+		<property name="pay_month"></property>
+		<property name="pay_baseMoney"></property>
+		<property name="pay_overtime"></property>
+		<property name="pay_age"></property>
+		<property name="pay_check"></property>
+		<property name="pay_absent"></property>
+		<property name="pay_safety"></property>
+	</class>
+	<class name="po.tb_manager">
+		<!-- id元素用来定义主键标识,并指定主键生成策略 -->
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		
+		<!-- 定义其他属性 -->
+		<property name="acount"></property>
+		<property name="password"></property>
+		<property name="managerLevel"></property>
+		<property name="recordDate" generated="insert" not-null="true">
+		<column name="recordDate" sql-type="timestamp" default="CURRENT_TIMESTAMP"/>
+		</property>
+		
+	</class>
+	<class name="po.tb_cj">
+		<!-- id元素用来定义主键标识,并指定主键生成策略 -->
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		
+		<!-- 定义其他属性 -->
+		<property name="cj_title"></property>
+		<property name="cj_type"></property>
+		<property name="cj_content"></property>
+		<property name="cj_money"></property>
+		<property name="cj_time"></property>
+		<property name="cj_recordTime" generated="insert" not-null="true">
+		<column name="cj_recordTime" sql-type="timestamp" default="CURRENT_TIMESTAMP"/>
+		</property>
+		
+	</class>
+	<class name="po.tb_department">
+		<!-- id元素用来定义主键标识,并指定主键生成策略 -->
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		
+		<!-- 定义其他属性 -->
+		<property name="dt_name"></property>
+		<property name="dt_creatime"></property>
+		<property name="dt_bz"></property>
+		<property name="dt_recordTime" generated="insert" not-null="true">
+		<column name="dt_recordTime" sql-type="timestamp" default="CURRENT_TIMESTAMP"/>
+		</property>
+		
+	</class>
+	<class name="po.tb_train">
+		<!-- id元素用来定义主键标识,并指定主键生成策略 -->
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		
+		<!-- 定义其他属性 -->
+		<property name="tn_man"></property>
+		<property name="tn_title"></property>
+		<property name="tn_content"></property>
+		<property name="tn_time"></property>
+		<property name="tn_address"></property>
+		<property name="tn_join"></property>
+		<property name="tn_bz"></property>
+		<property name="tn_recordTime" generated="insert" not-null="true">
+		<column name="tn_recordTime" sql-type="timestamp" default="CURRENT_TIMESTAMP"/>
+		</property>
+		
+	</class>
+	<class name="po.tb_logininfo">
+		<!-- id元素用来定义主键标识,并指定主键生成策略 -->
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		
+		<!-- 定义其他属性 -->
+		<property name="account"></property>
+		<property name="ip"></property>
+		<property name="userbrowser"></property>
+		<property name="useros"></property>
+		<property name="remoteHost"></property>
+		<property name="login_recordTime" generated="insert" not-null="true">
+		<column name="login_recordTime" sql-type="timestamp" default="CURRENT_TIMESTAMP"/>
+		</property>
+		
+	</class>
+</hibernate-mapping>

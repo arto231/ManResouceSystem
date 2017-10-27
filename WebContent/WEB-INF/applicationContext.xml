@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+	<!-- 定义数据源Bean -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<!-- 数据库驱动 -->
+		<property name="driverClassName">
+			<value>com.mysql.jdbc.Driver</value>
+		</property>
+		<!-- 数据库连接URL -->
+		<property name="url">
+			<value>jdbc:mysql://localhost/people_mana?useUnicode=true&amp;characterEncoding=UTF-8
+			</value>
+		</property>
+		<!-- 数据库用户名 -->
+		<property name="username">
+			<value>root</value>
+		</property>
+		<!-- 数据库密码 -->
+		<property name="password">
+			<value>root</value>
+		</property>
+	</bean>
+
+	<!-- 定义SessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<!-- 指定数据源 -->
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<!-- 指定数据库方言 -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="hibernate.show_sql">false</prop>
+			</props>
+		</property>
+		<!-- 指定映射文件 -->
+		<property name="mappingResources">
+			<list>
+				<value>po/infos.hbm.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 定义hibernateTemplate -->
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<!--*****************************************用户数据统计工具类 ********************************************************** -->
+<bean id="loginAcount_dao" class="dao.AccessRecord_dao">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate" />
+		</property>
+	</bean>
+	<bean id="loginAcount_server" class="server.AccessRecord_server">
+		<property name="dao">
+			<ref bean="loginAcount_dao" />
+		</property>
+	</bean>
+	<bean id="tool_acountLoginInfo" class="MyTool.MyTool">
+		<property name="employeeServer">
+			<ref bean="empolyee_server" />
+		</property>
+	</bean>
+	
+	<!--*****************************************用户数据统计工具类 ********************************************************** -->
+
+	<!--*****************************************为mana服务层注入 ********************************************************** -->
+	<bean id="mana_dao" class="dao.Mana_dao">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate" />
+		</property>
+	</bean>
+	<bean id="mana_server" class="server.Mana_server">
+		<property name="dao">
+			<ref bean="mana_dao" />
+		</property>
+	</bean>
+	<bean id="mana_loginout" class="action.Mana.Mana_loginoutAction">
+	</bean>
+	<bean id="mana_loginCheckAction" class="action.Mana.Mana_loginCheckAction">
+		<property name="server">
+			<ref bean="mana_server" />
+		</property>
+		<!-- 记录管理员登录 -->
+		<property name="serverLoginAccount">
+			<ref bean="loginAcount_server" />
+		</property>
+		<property name="mytool">
+			<ref bean="tool_acountLoginInfo" />
+		</property>
+		
+	</bean>
+	<bean id="mana_addAction" class="action.Mana.Mana_addAction">
+		<property name="server">
+			<ref bean="mana_server" />
+		</property>
+	</bean>
+	<bean id="mana_delAction" class="action.Mana.Mana_delAction">
+		<property name="server">
+			<ref bean="mana_server" />
+		</property>
+	</bean>
+	<bean id="mana_updateAction" class="action.Mana.Mana_updateAction">
+		<property name="server">
+			<ref bean="mana_server" />
+		</property>
+	</bean>
+	<bean id="mana_querryAction" class="action.Mana.Mana_querryAction">
+		<property name="server">
+			<ref bean="mana_server" />
+		</property>
+	</bean>
+	
+	
+	
+	
+	
+<!--*****************************************为mana服务层注入 ********************************************************** -->
+
+	<!--*****************************************测试spring用的 ********************************************************** -->
+
+	<!--*****************************************测试spring用的 ********************************************************** -->
+
+	<!--*****************************************测试spring用的 ********************************************************** -->
+
+	<!--*****************************************管理员登录验证action用的 ********************************************************** -->
+
+	<!--*****************************************管理员登录验证action用的 ********************************************************** -->
+
+	<!--*****************************************员工管理 ********************************************************** -->
+<bean id="empolyee_dao" class="dao.Employee_dao">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate" />
+		</property>
+	</bean>
+	<bean id="empolyee_server" class="server.Employee_server">
+		<property name="dao">
+			<ref bean="empolyee_dao" />
+		</property>
+	</bean>
+	<bean id="empolyee_addAction" class="action.Employee.Employee_addAction">
+		<property name="server">
+			<ref bean="empolyee_server" />
+		</property>
+		<property name="mytool">
+			<ref bean="tool_acountLoginInfo" />
+		</property>
+	</bean>
+	<bean id="empolyee_delAction" class="action.Employee.Employee_delAction">
+		<property name="server">
+			<ref bean="empolyee_server" />
+		</property>
+	</bean>
+	<bean id="empolyee_updateAction" class="action.Employee.Employee_updateAction">
+		<property name="server">
+			<ref bean="empolyee_server" />
+		</property>
+	</bean>
+	<bean id="empolyee_querryAction" class="action.Employee.Employee_querryAction">
+		<property name="server">
+			<ref bean="empolyee_server" />
+		</property>
+	</bean>
+	<!--*****************************************员工管理 ********************************************************** -->
+
+	<!--*****************************************招聘管理 ********************************************************** -->
+<bean id="wanted_dao" class="dao.Wanted_dao">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate" />
+		</property>
+	</bean>
+	<bean id="wanted_server" class="server.Wanted_server">
+		<property name="dao">
+			<ref bean="wanted_dao" />
+		</property>
+	</bean>
+	<bean id="wanted_addAction" class="action.Wanted.Wanted_addAction">
+		<property name="server">
+			<ref bean="wanted_server" />
+		</property>
+	</bean>
+	<bean id="wanted_delAction" class="action.Wanted.Wanted_delAction">
+		<property name="server">
+			<ref bean="wanted_server" />
+		</property>
+	</bean>
+	<bean id="wanted_updateAction" class="action.Wanted.Wanted_updateAction">
+		<property name="server">
+			<ref bean="wanted_server" />
+		</property>
+	</bean>
+	<bean id="wanted_querryAction" class="action.Wanted.Wanted_querryAction">
+		<property name="server">
+			<ref bean="wanted_server" />
+		</property>
+	</bean>
+
+	<!--*****************************************招聘管理 ********************************************************** -->
+	
+	
+	<!--*****************************************部门管理 ********************************************************** -->
+	<bean id="department_dao" class="dao.Department_dao">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate" />
+		</property>
+	</bean>
+	<bean id="department_server" class="server.Department_server">
+		<property name="dao">
+			<ref bean="department_dao" />
+		</property>
+	</bean>
+	<bean id="department_addAction" class="action.Department.Department_addAction">
+		<property name="server">
+			<ref bean="department_server" />
+		</property>
+	</bean>
+	<bean id="department_delAction" class="action.Department.Department_delAction">
+		<property name="server">
+			<ref bean="department_server" />
+		</property>
+	</bean>
+	<bean id="department_updateAction" class="action.Department.Department_updateAction">
+		<property name="server">
+			<ref bean="department_server" />
+		</property>
+	</bean>
+	<bean id="department_querryAction" class="action.Department.Department_querryAction">
+		<property name="server">
+			<ref bean="department_server" />
+		</property>
+	</bean>
+	
+	
+	<!--*****************************************dao ********************************************************** -->
+
+	<!--*****************************************serverImple ********************************************************** -->
+
+	<!--*****************************************部门管理 ********************************************************** -->
+
+
+	<!--*****************************************培训管理 ********************************************************** -->
+<bean id="train_dao" class="dao.Train_dao">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate" />
+		</property>
+	</bean>
+	<bean id="train_server" class="server.Train_server">
+		<property name="dao">
+			<ref bean="train_dao" />
+		</property>
+	</bean>
+	<bean id="train_addAction" class="action.Train.Train_addAction">
+		<property name="server">
+			<ref bean="train_server" />
+		</property>
+	</bean>
+	<bean id="train_delAction" class="action.Train.Train_delAction">
+		<property name="server">
+			<ref bean="train_server" />
+		</property>
+	</bean>
+	<bean id="train_updateAction" class="action.Train.Train_updateAction">
+		<property name="server">
+			<ref bean="train_server" />
+		</property>
+	</bean>
+	<bean id="train_querryAction" class="action.Train.Train_querryAction">
+		<property name="server">
+			<ref bean="train_server" />
+		</property>
+	</bean>
+	<!--*****************************************培训管理 ********************************************************** -->
+
+
+	<!--*****************************************薪酬管理 ********************************************************** -->
+<bean id="pay_dao" class="dao.Pay_dao">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate" />
+		</property>
+	</bean>
+	<bean id="pay_server" class="server.Pay_server">
+		<property name="dao">
+			<ref bean="pay_dao" />
+		</property>
+	</bean>
+	<bean id="pay_addAction" class="action.Pay.Pay_addAction">
+		<property name="server">
+			<ref bean="pay_server" />
+		</property>
+	</bean>
+	<bean id="pay_delAction" class="action.Pay.Pay_delAction">
+		<property name="server">
+			<ref bean="pay_server" />
+		</property>
+	</bean>
+	<bean id="pay_updateAction" class="action.Pay.Pay_updateAction">
+		<property name="server">
+			<ref bean="pay_server" />
+		</property>
+	</bean>
+	<bean id="pay_querryAction" class="action.Pay.Pay_querryAction">
+		<property name="server">
+			<ref bean="pay_server" />
+		</property>
+	</bean>
+	<!--*****************************************薪酬管理 ********************************************************** -->
+
+
+
+
+	<!--*****************************************奖惩管理 ********************************************************** -->
+<bean id="cj_dao" class="dao.Cj_dao">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate" />
+		</property>
+	</bean>
+	<bean id="cj_server" class="server.Cj_server">
+		<property name="dao">
+			<ref bean="cj_dao" />
+		</property>
+	</bean>
+	<bean id="cj_addAction" class="action.Cj.Cj_addAction">
+		<property name="server">
+			<ref bean="cj_server" />
+		</property>
+	</bean>
+	<bean id="cj_delAction" class="action.Cj.Cj_delAction">
+		<property name="server">
+			<ref bean="cj_server" />
+		</property>
+	</bean>
+	<bean id="cj_updateAction" class="action.Cj.Cj_updateAction">
+		<property name="server">
+			<ref bean="cj_server" />
+		</property>
+	</bean>
+	<bean id="cj_querryAction" class="action.Cj.Cj_querryAction">
+		<property name="server">
+			<ref bean="cj_server" />
+		</property>
+	</bean>
+	<!--*****************************************奖惩管理管理 ********************************************************** -->
+</beans>
