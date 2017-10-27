@@ -9,24 +9,27 @@ import org.apache.struts2.ServletActionContext;
 import po.tb_department;
 
 import MyTool.CutPages;
+import MyTool.PageModel;
 import actionSum.ActionSum;
 
 public class Department_querryAction extends ActionSum{
 	public CutPages cutpage;
-	public int pageSize=5;
+	public int pageSize=5;//默认每页分页大小为5条
 	public int pageNo=1;
 
 	@Override
 	public String execute() throws Exception {
 		
 		HttpServletRequest request=ServletActionContext.getRequest();
-		ArrayList<tb_department> reult=(ArrayList<tb_department>) request.getSession().getAttribute(DEPARTMENT_QUERRY_MARK);
+		ArrayList<PageModel<tb_department>> reult=(ArrayList<PageModel<tb_department>>) request.getSession().getAttribute("pages");
 		try {
-			if(reult==null){
-			reult=server.querryAll(tb_department.class);
+			if(reult==null){//如果session中没有所有page信息，则从数据库查询，并把分页结果放到 pages session中
+			
+				reult=cutpage.cutpage(pageSize, pageNo, server.querryAll(tb_department.class));
+					request.getSession().setAttribute("pages",reult );
 			}
 			
-			request.getSession().setAttribute(DEPARTMENT_QUERRY_MARK,reult);
+			request.setAttribute(DEPARTMENT_QUERRY_MARK,reult.get(pageNo));
 			return SUCCESS;
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,3 +1,4 @@
+<%@page import="MyTool.PageModel"%>
 <%@page import="po.tb_department"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
@@ -24,9 +25,8 @@
 		<th class='numeric'>操作</th>
 		<th class='numeric'></th>
 	</tr>
-	<%
-		ArrayList<tb_department> infos = (ArrayList<tb_department>) request
-				.getAttribute("department_info");
+	<%PageModel pageMode=(PageModel) request.getAttribute("department_info");
+		ArrayList<tb_department> infos = (pageMode).getList();
 		out.print("sdsdsddsdsd"+infos.size());
 		if (infos != null) {
 			for (tb_department de : infos) {
@@ -56,7 +56,15 @@
 
 		}
 	%>
+	<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td><form></form></td>
+	</tr>
 </table>
+<input type="text" width="50px"><p>当前是第<%=pageMode.getPageNo() %>/<%=pageMode.getTotalPage() %>页</p><a href="#">第一页</a><a href="#">前页</a><a href="#">下页</a><a href="#">末页</a>
 <div class="showback">
 <h4><i class="fa fa-angle-right"></i><font
 	style="vertical-align: inherit;"><font

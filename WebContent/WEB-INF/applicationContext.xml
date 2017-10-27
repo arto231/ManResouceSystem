@@ -70,6 +70,9 @@
 			<ref bean="empolyee_server" />
 		</property>
 	</bean>
+	<bean id="cutpage" class="MyTool.CutPages">
+		
+	</bean>
 	
 	<!--*****************************************用户数据统计工具类 ********************************************************** -->
 
@@ -236,6 +239,9 @@
 	<bean id="department_querryAction" class="action.Department.Department_querryAction">
 		<property name="server">
 			<ref bean="department_server" />
+		</property>
+		<property name="cutpage">
+			<ref bean="cutpage" />
 		</property>
 	</bean>
 	
